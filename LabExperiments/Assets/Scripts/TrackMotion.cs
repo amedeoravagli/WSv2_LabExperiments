@@ -5,7 +5,7 @@ using UnityEngine;
 public class TrackMotion : MonoBehaviour
 {
     
-    public float _speed = 10.0f;
+    public float _speed = 5.0f;
 
     // Update is called once per frame
     void Update()
