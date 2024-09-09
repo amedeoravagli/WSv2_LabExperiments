@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Trigger
   - Destroy
+  - Obstacle
+  - Point
+  - SubTrack
   layers:
   - Default
   - TransparentFX
@@ -13,8 +16,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Post processing
+  - No Post processing
   - 
   - 
   - 

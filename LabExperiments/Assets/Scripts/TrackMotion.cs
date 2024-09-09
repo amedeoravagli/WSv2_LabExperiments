@@ -1,18 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Rendering.PostProcessing;
 
 public class TrackMotion : MonoBehaviour
 {
-    
-    public float _speed = 5.0f;
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position -= new Vector3(0, 0, (Time.deltaTime * _speed));
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Destroy"))

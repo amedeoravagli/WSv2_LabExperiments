@@ -6,97 +6,67 @@ using UnityEngine.Events;
 public class AnimateSki : MonoBehaviour
 {
     [SerializeField] private Transform _rotPoint;
-    private float _angle = 0;
+    [SerializeField] private Transform _backRotPoint;
+    //private float _angle = 0;
     private int _rotateDir = 1;
-    private float _speedRot = 30.0f;
+    private float _speedRot = 5.0f;
+    private float _factor = 5.0f;
     private float _angleLimit = 40.0f;
-    private bool leftPressed = false, rightPressed = false;
-    //private UnityAction<bool> _movingEvent;
-    /*private void Start()
-    {
-        _movingEvent += eventHandler;
-    }*/
-
-    /*private void eventHandler(bool isright)
-    {
-        StartCoroutine()
-    }*/
+    //private bool leftPressed = false, rightPressed = false;
+    private float offset = 0.0f; // [-1.0; 1.0]
+    private float _dzOffset = 0.05f;
+    
 
     private void Update()
     {
         Vector3 newEulerOffset = Vector3.zero;
-        Quaternion startRotation = transform.localRotation;
-        Vector3 startEulerRotation = startRotation.eulerAngles;
-        Vector3 finishEulerRotation = new Vector3(0, _angleLimit, 0);
+        //Quaternion startRotation = transform.localRotation;
+        //Vector3 startEulerRotation = startRotation.eulerAngles;
+        //Vector3 finishEulerRotation = new Vector3(0, _angleLimit, 0);
+
         
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && offset > -1.0)
         {
             _rotateDir = -1;
-            leftPressed = true;
-            newEulerOffset = Vector3.up * (_speedRot * Time.deltaTime) * _rotateDir;
-            if ((startRotation * Quaternion.Euler(newEulerOffset)).eulerAngles.y < -_angleLimit)
-            {
-                transform.rotation = startRotation * Quaternion.Euler(finishEulerRotation - startEulerRotation);
+            //leftPressed = true;
+            offset += Time.deltaTime * _factor * _rotateDir;
+            if(offset < -1.0){
+                offset = -1.0f;
             }
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) && offset < 1.0)
         {
             _rotateDir = 1;
-            rightPressed = true;
-            newEulerOffset = Vector3.up * (_speedRot * Time.deltaTime) * _rotateDir;
-            if ((startRotation * Quaternion.Euler(newEulerOffset)).eulerAngles.y > _angleLimit)
-            {
-                transform.rotation = startRotation * Quaternion.Euler(finishEulerRotation - startEulerRotation);
+            //rightPressed = true;
+            offset += Time.deltaTime * _factor * _rotateDir;
+            if(offset > 1.0){
+                offset = 1.0f;
             }
         }
-        else if ((Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) && startEulerRotation.y != 0)
+        else if (!(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (offset < -_dzOffset || offset > _dzOffset))
         {
-            _rotateDir = -1 * (int)Mathf.Sign(startEulerRotation.y);
-            leftPressed = false;
-            rightPressed = false;
-            BackRotateSkiUpdate();
+            _rotateDir = -1 * (int)Mathf.Sign(offset);
+            //leftPressed = false;
+            //rightPressed = false;
+            offset += Time.deltaTime * _factor * _rotateDir;
+        }
+        newEulerOffset = _angleLimit * offset * Vector3.up;
+        
+        if(Input.GetKey(KeyCode.S))
+        {
+            // rotate ski in A position to simulate the stop
+            //RotateSkiUpdate(); 
         }
         RotateSkiUpdate(newEulerOffset);
-
-        /*
-        if (Input.GetKeyDown(KeyCode.A) && !leftPressed)
-        {
-            _rotateDir = 1;
-            leftPressed = true;
-            //StopAllCoroutines();
-            //StartCoroutine(RotateSki());
-
-        }
-        else if (Input.GetKeyDown(KeyCode.D) && !rightPressed)
-        {
-            _rotateDir = -1;
-            rightPressed = true;
-            //StopAllCoroutines();
-            //StartCoroutine(RotateSki());
-        }
-        else if (Input.GetKeyUp(KeyCode.A) && !Input.GetKey(KeyCode.D))
-        {
-            _rotateDir = -1;
-            leftPressed = false;
-            //StopAllCoroutines();
-            //StartCoroutine(BackRotateSki());
-        }
-        else if (Input.GetKeyUp(KeyCode.D) && !Input.GetKey(KeyCode.A))
-        {
-            _rotateDir = 1;
-            rightPressed = false;
-            //StopAllCoroutines();
-            //StartCoroutine(BackRotateSki());
-        }*/
 
     }
 
     private void RotateSkiUpdate(Vector3 newEulerOffset)
     {
-        Quaternion startRotation = transform.localRotation;
-        if (Mathf.Sign(newEulerOffset.y)*newEulerOffset.y > 0)
+        
+        if (newEulerOffset.y != 0)
         {
-            transform.rotation = startRotation * Quaternion.Euler(newEulerOffset);
+            transform.localRotation = Quaternion.Euler(newEulerOffset);
         }
     }
     private void BackRotateSkiUpdate()
