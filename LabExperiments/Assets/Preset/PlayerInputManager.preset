@@ -1,0 +1,223 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PlayerInputManager
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 4ea92915442207c458d961fa1f9dd16a, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputActionType
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDesktop._playerInputSelected
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDesktop._playerInputActions.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDesktop._playerInputActions.Array.data[0].name
+    value: Mouse and Keyboard
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDesktop._playerInputActions.Array.data[0].movementLR
+    value: 
+    objectReference: {fileID: -910990468940635282, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDesktop._playerInputActions.Array.data[0].movementFB
+    value: 
+    objectReference: {fileID: -2800652901062859909, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDesktop._playerInputActions.Array.data[0].playerOrientation
+    value: 
+    objectReference: {fileID: 1049777902244335784, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDesktop._playerInputActions.Array.data[0].seatOrientationBT
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputSelected
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[0].name
+    value: Joystick
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[0].movementLR
+    value: 
+    objectReference: {fileID: -6719653767186634159, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[0].movementFB
+    value: 
+    objectReference: {fileID: -4489129824414642733, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[0].playerOrientation
+    value: 
+    objectReference: {fileID: -272931128237990368, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[0].seatOrientationBT
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[1].name
+    value: Joystick and Seat
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[1].movementLR
+    value: 
+    objectReference: {fileID: -6719653767186634159, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[1].movementFB
+    value: 
+    objectReference: {fileID: -4489129824414642733, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[1].playerOrientation
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[1].seatOrientationBT
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[2].name
+    value: HMD and Seat
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[2].movementLR
+    value: 
+    objectReference: {fileID: -7838217144108586039, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[2].movementFB
+    value: 
+    objectReference: {fileID: -7838217144108586039, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[2].playerOrientation
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[2].seatOrientationBT
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[3].name
+    value: JoystickRot and Seat
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[3].movementLR
+    value: 
+    objectReference: {fileID: 8613427611782405631, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[3].movementFB
+    value: 
+    objectReference: {fileID: 8613427611782405631, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[3].playerOrientation
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputDirect._playerInputActions.Array.data[3].seatOrientationBT
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputSelected
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.data[0].name
+    value: Joystick
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.data[0].movementLR
+    value: 
+    objectReference: {fileID: 4758659464045578170, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.data[0].movementFB
+    value: 
+    objectReference: {fileID: 2921256080648411944, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.data[0].playerOrientation
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.data[0].seatOrientationBT
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.data[1].name
+    value: Joystick and Seat
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.data[1].movementLR
+    value: 
+    objectReference: {fileID: 4758659464045578170, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.data[1].movementFB
+    value: 
+    objectReference: {fileID: 2921256080648411944, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.data[1].playerOrientation
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputIndirect._playerInputActions.Array.data[1].seatOrientationBT
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputExternal._playerInputSelected
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputExternal._playerInputActions.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputExternal._playerInputActions.Array.data[0].name
+    value: GamePad
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inputExternal._playerInputActions.Array.data[0].movementLR
+    value: 
+    objectReference: {fileID: -5024891695034077530, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputExternal._playerInputActions.Array.data[0].movementFB
+    value: 
+    objectReference: {fileID: -8018322438197734049, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputExternal._playerInputActions.Array.data[0].playerOrientation
+    value: 
+    objectReference: {fileID: -7257695273556737055, guid: 64933b45145990943a3be45b3056b92f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: inputExternal._playerInputActions.Array.data[0].seatOrientationBT
+    value: 
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []

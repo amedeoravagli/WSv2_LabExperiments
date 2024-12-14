@@ -1,0 +1,3 @@
+Bluetooth ;
+timestamp; status;interrupt;globalPosition; ; ;localPosition; ; ;globalRotation; ; ; ;localRotation; ; ; ;
+msec; Game Status; code;x; y; z;x; y; z;x; y; z; w;x; y; z; w;
