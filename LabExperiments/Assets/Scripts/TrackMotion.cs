@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.Rendering.PostProcessing;
 
 public class TrackMotion : MonoBehaviour
 {
@@ -13,5 +8,6 @@ public class TrackMotion : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 }

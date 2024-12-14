@@ -1,21 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System;
 //using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.Assertions;
 using UnityEngine.Rendering.PostProcessing;
-using Unity.VisualScripting;
 
-public class MovePlayer : MonoBehaviour
+
+public class MovePlayer : Player
 {
     //private const float DETECTION_TH = 0.2f;
     //[SerializeField] private InputMode _mode = InputMode.Click;
     [SerializeField] private GameObject _track;
     [SerializeField] private GameObject _postProcessGO;
-    [SerializeField] private float _walkSpeed = 5;
-    [SerializeField] private float _runSpeed = 8;
+    [SerializeField] private float _walkSpeed = 7;
 
     public bool Blocked
     {
@@ -36,9 +31,8 @@ public class MovePlayer : MonoBehaviour
         }
     }
 
-    public float WalkSpeed => _walkSpeed;
+    public float SlidingSpeed => _walkSpeed;
 
-    public float RunSpeed => _runSpeed;
 
     bool _blocked = false;
 
@@ -48,17 +42,19 @@ public class MovePlayer : MonoBehaviour
     //bool _rightPadDown = false;
     float _factor = 0;
     float _factorForward = 0.5f;
-    float _smoothStep = 0.05f;
+    float _smoothStep = 5.0f;
+    float _speedStep = 2.0f;
     float _lastSpeed = 0;
     Vector3 _lastDir = Vector3.zero;
     //float t;
     Vector3 moveDirection;
     private PostProcessVolume _postProcess;
     private float _postProcessFactor = 0.0f;
-    private float _postProcSpeed = 2.0f;
+    //private float _postProcSpeed = 2.0f;
     public float _slowSpeed = 3.0f;
     public float _fastSpeed = 7.0f;
     private float _trackSpeed = 5.0f;
+    private Player _player;
     public float TrackSpeed
     {
         get { return _trackSpeed; }
@@ -67,71 +63,77 @@ public class MovePlayer : MonoBehaviour
             _trackSpeed = value;
         }
     }
-    void Awake()
+    override protected void Start()
     {
+        base.Start();
         _postProcess = _postProcessGO.GetComponent<PostProcessVolume>();
         _target = GetComponent<CharacterController>();
-        
+        _player = GetComponent<Player>();
     }
 
-    void Update()
-    {
-        // manage speed of the track
-        if (Input.GetKey(KeyCode.W)) // speed up
+    override protected void Update()
+    {   
+        base.Update();
+
+        float verticalInput = 0.5f + (_player.verticalMove / 2);
+        if (_player.isMovingFB)
         {
-            if (_postProcessFactor < 1)
-                _postProcessFactor += Time.deltaTime * _postProcSpeed; 
-            
-            _factorForward += _smoothStep;
+            _factorForward += Time.deltaTime * _speedStep * Mathf.Sign(_player.verticalMove);
+            if (_player.verticalMove > 0.80f){
+                _postProcessFactor += Time.deltaTime * _speedStep;
+            }else {
+                _postProcessFactor -= Time.deltaTime * _speedStep;
+            }
+            if(_postProcessFactor > 1.0f){
+                _postProcessFactor = 1.0f;
+            }
+            if(_postProcessFactor < 0.0f){
+                _postProcessFactor = 0.0f;
+            }
             if (_factorForward > 1.0f){
                 _factorForward = 1.0f;
-            }
-        }
-        else if (Input.GetKey(KeyCode.S)) // slow down
-        {
-            _factorForward -= _smoothStep;
+            }   
             if (_factorForward < 0.0f){
                 _factorForward = 0.0f;
             }
+            
         }
-        else if (_factorForward <= 0.45f || _factorForward >= 0.55f)
+        else
         {
-            //movement = _lastDir * (Time.deltaTime * _factor * _lastSpeed);
-            _factorForward -= _smoothStep * Mathf.Sign(_factorForward - 0.5f);
-            //if (_factor < 0)
-            //    _factor = 0;
-        }
-        
-        if (!Input.GetKey(KeyCode.W)) // speed up
-        {
-            if (_postProcessFactor > 0)
-                _postProcessFactor -= Time.deltaTime * _postProcSpeed/2;
-        }
-        
-        if (_postProcessFactor > 1)
-        {
-            _postProcessFactor = 1;
-        }
-        else if (_postProcessFactor < 0)
-        {
-            _postProcessFactor = 0;
-        }
-        //float _posZVolume = Mathf.Lerp(-2, 0, _postProcessFactor); 
-        //_postProcess.transform.localPosition = new Vector3(0,0,_posZVolume);
-        _postProcess.weight = _postProcessFactor;
-        TrackSpeed = Mathf.Lerp(_slowSpeed, _fastSpeed, _factorForward);
-        _track.GetComponentsInChildren<TrackMotion>();
-        foreach (Transform t_child in _track.transform){
-            if (t_child.CompareTag("SubTrack")){
-                t_child.transform.localPosition -= new Vector3(0,0,Time.deltaTime * TrackSpeed);
+            if (_factorForward <= 0.45f || _factorForward >= 0.55f)
+            {
+                //movement = _lastDir * (Time.deltaTime * _factor * _lastSpeed);
+                _factorForward -= Time.deltaTime * _speedStep * Mathf.Sign(_factorForward - 0.5f);
+                //if (_factor < 0)
+                //    _factor = 0;
+            }
+            if(_player.verticalMove <= 0.80f)
+                _postProcessFactor -= Time.deltaTime * _speedStep/2;
+            if (_postProcessFactor < 0){
+                _postProcessFactor = 0;
             }
         }
-        moveDirection = Vector3.zero;
-        if (_target.isGrounded)
-            moveDirection = CalculateMotion();
-        moveDirection = ApplyGravity(moveDirection);
-        _target.Move(moveDirection);
-    
+       
+        //float _posZVolume = Mathf.Lerp(-2, 0, _postProcessFactor); 
+        //_postProcess.transform.localPosition = new Vector3(0,0,_posZVolume);
+        if(_player.activeMovement){
+            _postProcess.weight = _postProcessFactor;
+            TrackSpeed = Mathf.Lerp(_slowSpeed, _fastSpeed, _factorForward);
+            //_track.GetComponentsInChildren<TrackMotion>();
+            foreach (Transform t_child in _track.transform)
+            {
+                if (t_child.CompareTag("SubTrack"))
+                {
+                    t_child.transform.localPosition -= new Vector3(0,0,Time.deltaTime * TrackSpeed);
+                }
+            }
+            moveDirection = Vector3.zero;
+            if (_target.isGrounded)
+                moveDirection = CalculateLRMotion();
+            //moveDirection = ApplyGravity(moveDirection);
+            _target.SimpleMove(moveDirection);    
+        }
+        
     }
 
     private Vector3 ApplyGravity(Vector3 moveDirection)
@@ -140,49 +142,51 @@ public class MovePlayer : MonoBehaviour
         return moveDirection;
     }
 
-    private Vector3 CalculateMotion()
+    private Vector3 CalculateLRMotion()
     {
         Vector3 movement = Vector3.zero;
-        if (Input.GetKey(KeyCode.A))
+        float offset = 0.05f;
+        float hMove = _player.horizontalMove;
+
+        //Debug.Log(hMove);
+        if (hMove < -offset)
         {
             _lastDir = -Vector3.right;
-            if (Input.GetKey(KeyCode.LeftShift))
-                _lastSpeed = RunSpeed;
-            else
-            {
+            //if (Input.GetKey(KeyCode.LeftShift))
+            //    _lastSpeed = RunSpeed;
+            //else
+            //{
                 //tp = _input.LeftPadAxis;
                 //t = (tp.padY + 1) / 2;
                 //_lastSpeed = Mathf.Lerp(0, _walkSpeed, t);
-                _lastSpeed = WalkSpeed;
-            }
-
-            movement = _lastDir * (Time.deltaTime * _factor * _lastSpeed);
-            _factor += _smoothStep;
+            _lastSpeed = SlidingSpeed;
+            //}
+            
+            movement = _lastSpeed * hMove /** Time.deltaTime */* Vector3.right;
+            _factor += Time.deltaTime * _smoothStep;
             if (_factor > 1)
                 _factor = 1;
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (hMove > offset)
         {
             _lastDir = Vector3.right;
-            if (Input.GetKey(KeyCode.LeftShift))
-                _lastSpeed = RunSpeed;
-            else
-            {
-                //tp = _input.LeftPadAxis;
-                //t = (tp.padY + 1) / 2;
-                //_lastSpeed = Mathf.Lerp(0, _walkSpeed, t);
-                _lastSpeed = WalkSpeed;
-            }
+            
+            //tp = _input.LeftPadAxis;
+            //t = (tp.padY + 1) / 2;
+            //_lastSpeed = Mathf.Lerp(0, _walkSpeed, t);
+            _lastSpeed = SlidingSpeed;
+        
 
-            movement = _lastDir * (Time.deltaTime * _factor * _lastSpeed);
-            _factor += _smoothStep;
+            movement = _lastSpeed * hMove /** Time.deltaTime */ * Vector3.right;
+            _factor += Time.deltaTime * _smoothStep;
+
             if (_factor > 1)
                 _factor = 1;
         }
         else if (_factor > 0)
         {
-            movement = _lastDir * (Time.deltaTime * _factor * _lastSpeed);
-            _factor -= _smoothStep;
+            _factor -= Time.deltaTime * _smoothStep;
+            movement = _factor * _lastSpeed  /** Time.deltaTime */ * _lastDir; 
             if (_factor < 0)
                 _factor = 0;
         }
@@ -193,5 +197,10 @@ public class MovePlayer : MonoBehaviour
         }
 
         return movement;
+    }
+
+    protected override Vector3 movePlayer()
+    {
+        throw new NotImplementedException();
     }
 }

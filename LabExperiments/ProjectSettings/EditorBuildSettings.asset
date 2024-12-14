@@ -4,7 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: df54563fd28485c4a9c8a4418b6c6a36
+  - enabled: 1
+    path: Assets/Scenes/SkiExperiment.unity
+    guid: 1588dbd3824906d49961c1d86f872e27
+  - enabled: 1
+    path: Assets/Scenes/SkateGame.unity
+    guid: 2c62927918eca994b9cd4a13d0fc4c9a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 578c2f9f35277e54e857c955601520e1, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 22b6a2813406b2e48ab934346090eb77, type: 2}

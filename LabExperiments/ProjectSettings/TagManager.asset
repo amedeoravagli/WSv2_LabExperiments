@@ -9,6 +9,12 @@ TagManager:
   - Obstacle
   - Point
   - SubTrack
+  - Bluetooth
+  - Name
+  - Score
+  - FeedBack
+  - Logger
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
@@ -17,8 +23,8 @@ TagManager:
   - Water
   - UI
   - Post processing
-  - No Post processing
-  - 
+  - No Blur Layer
+  - Dinamic Light
   - 
   - 
   - 
